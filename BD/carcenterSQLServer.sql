@@ -1,142 +1,89 @@
-create login carcenterLogin
-with password ='carcenterLogin';
+﻿create database carcenter;
+use carcenter;
 
-GO
-create database carcenterDB;
-GO
+CREATE TABLE DOMINIOS(
+TIPO_DOMINIO	VARCHAR(50)		NOT NULL,
+ID_DOMINIO		VARCHAR(10)		NOT NULL,
+VLR_DOMINIO		VARCHAR(50)		NOT NULL,
+PRIMARY KEY(TIPO_DOMINIO, ID_DOMINIO));
 
-use carcenterDB;
+CREATE TABLE FACTURAS(
+NUM_FACTURA		NUMERIC(10)		PRIMARY KEY		IDENTITY(1,1),
+FECHA_FACTURA	DATETIME		NOT NULL);
 
-create user carcenterUser
-for login carcenterLogin;
-GO
-EXEC sp_addrolemember 'db_datareader', 'carcenterUser';
-GRANT CREATE TABLE TO carcenterUser;
-GO
+CREATE TABLE PERSONAS(
+IDENTIFICACION		NUMERIC(15)		PRIMARY KEY,
+NOMBRES				VARCHAR(100)	NOT NULL,
+TELEFONO			NUMERIC(10)		NOT NULL,
+DIRECCION			VARCHAR(100),
+CORREO				VARCHAR(100)	NOT NULl,
+ESPECIALIDAD		VARCHAR(10),
+TIPO_PERSONA		VARCHAR(10),
+CONTRASENA			VARCHAR(12)		NOT NULL,
+ESTADO_PERSONA		VARCHAR(10)		NOT NULL,
+CONSTRAINT UK_Correo UNIQUE(CORREO));
 
-GRANT ALTER, CONTROL, CREATE SEQUENCE, DELETE, EXECUTE,
-INSERT, REFERENCES, SELECT, TAKE OWNERSHIP, VIEW CHANGE TRACKING, 
-VIEW DEFINITION, UPDATE ON SCHEMA :: dbo TO carcenterUser;
-GO
+CREATE TABLE VEHICULOS(
+PLACA			VARCHAR(6)		PRIMARY KEY,
+MARCA			VARCHAR(10)		NOT NULL,
+MODELO			NUMERIC(4)		NOT NULL,
+COLOR			VARCHAR(10)		NOT NULL,
+TIPO_VEHICULO	VARCHAR(10)		NOT NULL);
 
-create table DOMINIOS (
+CREATE TABLE PERSONA_VEHICULO(
+ID_PERSONA_VEHICULO			NUMERIC(5)		PRIMARY KEY		IDENTITY(1,1),
+PLACA						VARCHAR(6)		NOT NULL,
+IDENTIFICACION				NUMERIC(15)		NOT NULL,
+ESTADO_PROP					VARCHAR(10)		NOT NULL,
+CONSTRAINT FK_PER_VEH_VEH	FOREIGN KEY(PLACA) REFERENCES VEHICULOS (PLACA),
+CONSTRAINT FK_PER_VEH_PER	FOREIGN KEY(IDENTIFICACION) REFERENCES PERSONAS (IDENTIFICACION),
+CONSTRAINT UK_PersonaVeh UNIQUE(PLACA, IDENTIFICACION));
 
-tipo_dominio varchar (50), 
-id_dominio varchar(10), 
-vlr_dominio varchar (50) not null,
+CREATE TABLE CITAS(
+ID_CITA				NUMERIC(5)		PRIMARY KEY		IDENTITY(1,1),
+FECHA_SOLICITUD		DATETIME		NOT NULL,
+ESTADO_CITA			VARCHAR(10)		NOT NULL,
+FECHA_CIERRE		DATETIME,
+DIAGNOSTICO			VARCHAR(300),
+MOTIVO_CITA			VARCHAR(300)	NOT NULL,
+ID_PERSONA_VEHICULO	NUMERIC(5)		NOT NULL,
+CONSTRAINT FK_CITAS_PER_VEH FOREIGN KEY (ID_PERSONA_VEHICULO) REFERENCES PERSONA_VEHICULO (ID_PERSONA_VEHICULO));
 
-primary key (tipo_dominio,id_dominio)
+CREATE TABLE SERVICIOS(
+ID_SERVICIO		NUMERIC(5)		PRIMARY KEY		IDENTITY(1,1),
+DESC_SERVICIO	VARCHAR(300)	NOT NULL,
+TIPO_SERVICIO	VARCHAR(10)		NOT NULL,
+TIEMPO_ESTIMADO	NUMERIC(3,1)	NOT NULL,
+ESTADO_SERVICIO	VARCHAR(10)		NOT NULL,
+VALOR_SERVICIO	NUMERIC(6)		NOT NULL,
+FECHA_SERVICIO	DATETIME		NOT NULL,
+NUM_FACTURA		NUMERIC(10)		NOT NULL,
+ID_CITA			NUMERIC(5)		NOT NULL,
+CONSTRAINT FK_SERVICIO_FACT FOREIGN KEY(NUM_FACTURA) REFERENCES FACTURAS (NUM_FACTURA),
+CONSTRAINT FK_SERVICIO_CITA FOREIGN KEY(ID_CITA) REFERENCES CITAS (ID_CITA));
 
-)
+CREATE TABLE FOTOS(
+ID_FOTO		NUMERIC(10)		PRIMARY KEY		IDENTITY(1,1),
+URL_FOTO	VARCHAR(50)		NOT NULL,
+ID_CITA		NUMERIC(5)		NOT NULL,
+CONSTRAINT FK_FOTOS_CITA FOREIGN KEY(ID_CITA) REFERENCES CITAS(ID_CITA));
 
-create table FACTURAS (
+CREATE TABLE MENSAJES(
+ID_MENSAJE		NUMERIC(10)		PRIMARY KEY		IDENTITY(1,1),
+DESC_MENSAJE	VARCHAR(300)	NOT NULL,
+FECHA_MENSAJE	DATETIME		NOT NULL,
+ID_CITA		NUMERIC(5)		NOT NULL,
+CONSTRAINT FK_MENSAJES_CITA FOREIGN KEY(ID_CITA) REFERENCES CITAS(ID_CITA));
 
-num_factura numeric(10) primary key,
-fecha_factura datetime not null
+CREATE TABLE REPUESTOS(
+ID_REPUESTO		NUMERIC(10)		PRIMARY KEY		IDENTITY(1,1),
+DESC_MENSAJE	VARCHAR(100)	NOT NULL);
 
-)
-
-create table PERSONAS (
-
-identificacion numeric (15),
-nombres varchar (100) not null,
-telefono numeric (10) not null,
-direccion varchar (100),
-correo varchar (100) unique not null,
-especialidad varchar (10),
-tipo_persona varchar (10),
-contrasena varchar (12) not null,
-estado_persona varchar (10) not null
-
-primary key (identificacion, tipo_persona)
-
-)
-
-create table VEHICULOS (
-
-placa varchar (6) primary key,
-marca varchar (10) not null,
-modelo numeric (4) not null,
-color varchar (10) not null,
-tipo_vehiculo varchar(10) not null
-
-)
-
-create table PERSONA_VEHICULO (
-
-estado_prop varchar(10),
-placa varchar(6),
-identificacion numeric (15),
-tipo_persona varchar (10)
-
-foreign key (placa) references VEHICULOS,
-foreign key (identificacion, tipo_persona) references PERSONAS
-
-)
-
-create table CITAS (
-
-id_cita numeric (5) primary key,
-fecha_solicitud datetime not null,
-estado_cita varchar(10) not null,
-fecha_cierre datetime,
-diagnostico varchar (300),
-motivo_cita varchar (300) not null
-
-)
-
-create table SERVICIOS (
-
-id_servicio numeric (5) primary key,
-desc_servicio varchar (300) not null,
-tipo_servicio varchar (10) not null,
-tiempo_estimado numeric (3,1) not null,
-estado_servicio varchar (10) not null,
-valor_servicio numeric (6) not null,
-fecha_servicio datetime not null,
-num_factura numeric (10),
-id_cita numeric (5),
-
-foreign key (num_factura) references FACTURAS,
-foreign key (id_cita) references CITAS
-
-)
-
-create table FOTOS (
-
-id_foto numeric (10) primary key,
-url_foto varchar (50) not null,
-id_cita numeric (5)
-
-foreign key (id_cita) references CITAS
-
-)
-
-create table MENSAJES (
-
-id_mensaje numeric (10) primary key,
-desc_mensaje varchar (500) not null,
-fecha_mensaje datetime not null,
-id_cita numeric (5)
-
-foreign key (id_cita) references CITAS
-)
-
-create table REPUESTOS (
-
-id_repuesto numeric (10) primary key,
-nom_repuesto varchar (100) unique not null
-
-)
-
-create table SERVICIO_REPUESTO (
-
-cantidad numeric (3) not null,
-valor_repuesto numeric (7) not null,
-id_servicio numeric (5),
-id_repuesto numeric (10)
-
-foreign key (id_servicio) references SERVICIOS,
-foreign key (id_repuesto) references REPUESTOS
-
-)
+CREATE TABLE SERVICIO_REPUESTO(
+ID_SERVICIO_REPUESTO		NUMERIC(10)		PRIMARY KEY		IDENTITY(1,1),
+CANTIDAD				NUMERIC(3)		NOT NULL,
+VALOR_REPUESTO			NUMERIC(7)		NOT NULL,
+ID_SERVICIO				NUMERIC(5)		NOT NULL,
+ID_REPUESTO				NUMERIC(10)		NOT NULL,
+CONSTRAINT FK_SERV_REP_SERV FOREIGN KEY (ID_SERVICIO) REFERENCES SERVICIOS (ID_SERVICIO),
+CONSTRAINT FK_SERV_REP_REP FOREIGN KEY (ID_REPUESTO) REFERENCES REPUESTOS (ID_REPUESTO));
