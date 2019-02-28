@@ -14,20 +14,21 @@
 </div>
 @section scripts
 {
-<script>
+    <script>
     $(document).ready(function () { //jquery es el lenguaje que me permite capturar html para manipularlo
-        $("#frmLogin"), submit(function (e) { //e es el evento que crea el submit o es la representacion
+        $("#frmLogin").submit(function (e) { //e es el evento que crea el submit o es la representacion
             e.preventDefault();
-            URL = "@Url.Content("~/Acceso/Enter")";
-            parametros = $(this).serialize(); //this es para decir que capture todo lo que encuentre 
-            $.post(url, parametros, function (data)){
+            url = "@Url.Content("~/Acceso/Enter")";
+            parametros = $(this).serialize(); //this es para decir que capture todo lo que encuentre
+            $.post(url, parametros, function (data){
                 if (data == "1") {
                     document.location.href = "@Url.Content("~/")";
                 } else {
                     alert(data);
                 }
-            }
+
+            })
         });
     });
-</script>
-    }
+    </script>
+}
