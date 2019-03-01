@@ -181,3 +181,4 @@ C:\wkp_poli\App2\CarcenterWeb\CarcenterWeb\bin\Microsoft.AI.Web.xml
 C:\wkp_poli\App2\CarcenterWeb\CarcenterWeb\obj\Debug\CarcenterWeb.csprojResolveAssemblyReference.cache
 C:\wkp_poli\App2\CarcenterWeb\CarcenterWeb\obj\Debug\CarcenterWeb.dll
 C:\wkp_poli\App2\CarcenterWeb\CarcenterWeb\obj\Debug\CarcenterWeb.pdb
+C:\wkp_poli\App2\CarcenterWeb\CarcenterWeb\obj\Debug\CarcenterWeb.csproj.CoreCompileInputs.cache
