@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarcenterWeb", "CarcenterWeb\CarcenterWeb.csproj", "{5A522E77-2300-4606-8790-A27FC37EDCBB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarcenterWeb", "CarcenterWeb\CarcenterWeb.csproj", "{69A4300B-AE01-4BA2-932D-FB23BC599C0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5A522E77-2300-4606-8790-A27FC37EDCBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5A522E77-2300-4606-8790-A27FC37EDCBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5A522E77-2300-4606-8790-A27FC37EDCBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5A522E77-2300-4606-8790-A27FC37EDCBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69A4300B-AE01-4BA2-932D-FB23BC599C0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69A4300B-AE01-4BA2-932D-FB23BC599C0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69A4300B-AE01-4BA2-932D-FB23BC599C0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69A4300B-AE01-4BA2-932D-FB23BC599C0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {66D47149-7463-4D0E-9ECC-795B7B9C9205}
+		SolutionGuid = {14DCFE7B-DF7A-45A7-B902-053A5C1BCA84}
 	EndGlobalSection
 EndGlobal

@@ -1,9 +1,4 @@
-use carcenter
+use carcenter;
+INSERT INTO PERSONAS VALUES(1234,'Donaldo Garcia', 3204617021, 'Cra 55a # 187','dgm4015@gmail.com', null,'ADM','1234','A');
 
-INSERT INTO PERSONAS VALUES(
-
-'1234','Jose Cortés', 365478963, 'Calle falsa 123', 'jcortesh1987@gmail.com' , 
- null, 'ADM' , '1234' , 'A' 
-);
-
-select * from PERSONAS
+SELECT * FROM PERSONAS;

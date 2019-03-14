@@ -14,15 +14,18 @@ namespace CarcenterWeb.Controllers
         {
             return View();
         }
-        public ActionResult Enter(int user, string pwd)
+
+        public ActionResult Enter(int user, String pwd)
         {
+
+
+
+
             try
             {
                 using (carcenterEntities db = new carcenterEntities())
                 {
-                    var lstPersonas = from p in db.PERSONAS
-                                      where p.IDENTIFICACION == user && p.CONTRASENA == pwd
-                                      select p;
+                    var lstPersonas = from p in db.PERSONAS where p.IDENTIFICACION == user && p.CONTRASENA == pwd select p; //LINQ
 
                     if (lstPersonas.Count() > 0)
                     {
@@ -32,17 +35,17 @@ namespace CarcenterWeb.Controllers
                     }
                     else
                     {
-                        return Content("Usuario o contraseña incorrectos");
+                        return Content("Usuario o Contraseña incorrecta");
+
                     }
+
                 }
 
             }
             catch (Exception ex)
             {
-                return Content("Error: " + ex.Message);
+                return Content("Error:" + ex.Message);
             }
-
         }
-
     }
 }

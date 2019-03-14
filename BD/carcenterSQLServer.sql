@@ -1,4 +1,4 @@
-﻿create database carcenter;
+create database carcenter;
 use carcenter;
 
 CREATE TABLE DOMINIOS(

@@ -8,9 +8,8 @@ namespace CarcenterWeb
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
-            //Habiilitar el filtro de sesion para cada submit en la aplicación
-            filters.Add(new Filters.VerificarSesion());
 
+            filters.Add(new Filters.VerificarSesion());
         }
     }
 }
