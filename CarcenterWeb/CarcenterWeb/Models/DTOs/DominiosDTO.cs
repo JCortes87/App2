@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.ComponentModel.DataAnnotations;//Esta livbreria importa las anotacionas que se pueden llegar a hacer en un formulario
+using System.ComponentModel.DataAnnotations;//Esta libreria importa las anotacionas que se pueden llegar a hacer en un formulario
 
 namespace CarcenterWeb.Models.DTOs
 {
     public class DominiosDTO
     {
-        [Required]
-        [Display(Name ="Tipo Dominio")]
+        [Required] // Lo que esta entre estas llaves son Data Annotations  
+        [Display(Name ="Tipo Dominio")] //Va a mostrar lo que esta aqui cuando se llame
         [StringLength(50)]
         public String TipoDominio { get; set; }
         [Required]

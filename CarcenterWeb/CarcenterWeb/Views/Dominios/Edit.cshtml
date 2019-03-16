@@ -1,8 +1,7 @@
 ﻿@model CarcenterWeb.Models.DTOs.DominiosDTO
 @{
-    ViewBag.Title = "Agregar Dominio";
+    ViewBag.Title = "Editar Dominio";
 }
-
 <h2>@ViewBag.Title</h2>
 <div class="row">
     <div class="col-md-12">
@@ -14,29 +13,29 @@
             3. El metodo (Get o post)
             4. Cualqiuier parametro que quiera pasar al formulario
         -->
-        @using (Html.BeginForm("Add", "Dominios", FormMethod.Post, new { role = "Form " }))//Creamos el formulario a traves de Razor
+        @using (Html.BeginForm("Edit", "Dominios", FormMethod.Post, new { role = "Form " }))//Creamos el formulario a traves de Razor
         {
             <!--
-            helper de seguridad para evitar invocaciones al form desde  fuera de la app    
+            helper de seguridad para evitar invocaciones al form desde  fuera de la app
             -->
             @Html.AntiForgeryToken()
             <!--
-            Helper para mostrar mensajes de error producidos por dataAnnotations    
+            Helper para mostrar mensajes de error producidos por dataAnnotations
             -->
-            @Html.ValidationMessage("Error",new { @class="text-danger"})
+            @Html.ValidationMessage("Error", new { @class = "text-danger" })
 
-            <!-- Mostrar label para el atributo Tipo Dominio, 
+            <!-- Mostrar label para el atributo Tipo Dominio,
                 tal como se especificó en el Data Annotation-->
-            @Html.LabelFor(d => d.TipoDominio)// el => es un apuntador, lo que hace es direccionar el objeto 
-           
+            @Html.LabelFor(d => d.TipoDominio)// el => es un apuntador, lo que hace es direccionar el objeto
+
             <!-- TextBox para recibir valor de tipo dominio-->
 
-            @Html.TextBoxFor(d => d.TipoDominio, new { @class = "form-control" })
+            @Html.TextBoxFor(d => d.TipoDominio, new { @class = "form-control", @readonly = "readonly" })
             @Html.ValidationMessage("TipoDominio", new { @class = "text-danger" })
             <br />
-           
+
             @Html.LabelFor(d => d.IdDominio)
-            @Html.TextBoxFor( d => d.IdDominio, new { @class = "form-control"})
+            @Html.TextBoxFor(d => d.IdDominio, new { @class = "form-control", @readonly = "readonly"})
             @Html.ValidationMessage("IdDominio", new { @class = "text-danger" })
             <br />
 
@@ -46,10 +45,8 @@
             <br />
 
             <div style="text-align: right">
-                <input type="submit" class="btn btn-success" value="Guardar"/>
+                <input type="submit" class="btn btn-success" value="Guardar" />
             </div>
         }
     </div>
-
 </div>
-
